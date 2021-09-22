@@ -39,7 +39,7 @@ File Name: rke2-canal-config.yml
 apiVersion: helm.cattle.io/v1
 kind: HelmChartConfig
 metadata:
-  name: rke2-calico
+  name: rke2-canal
   namespace: kube-system
 spec:
   valuesContent: |-
