@@ -31,7 +31,9 @@ https://docs.rke2.io/install/network_options/
 
 ### Better to modify the configuration file to disable CNI plugins
 To override Canal options you should be able to create HelmChartConfig resources <br/>
-The HelmChartConfig resource must match the name and namespace of its corresponding HelmChart, for example to override Canal Options, you can create the following config:
+The HelmChartConfig resource must match the name and namespace of its corresponding HelmChart. <br/>
+For example, to override Canal Options, you can create the following config: <br/>
+File Name: rke2-canal-config.yml
 
 ```
 apiVersion: helm.cattle.io/v1
