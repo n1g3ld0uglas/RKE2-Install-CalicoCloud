@@ -26,23 +26,34 @@ This will install the rke2-server service and the rke2 binary onto your machine.
 ```
 rke2 server --cni none
 ```
+We can override the existing Canal CNI plugin with the above flag: <br/>
+https://docs.rke2.io/install/network_options/
+
+### Better to modify the configuration file to disable CNI plugins
+To override Canal options you should be able to create HelmChartConfig resources <br/>
+The HelmChartConfig resource must match the name and namespace of its corresponding HelmChart, for example to override Canal Options, you can create the following config:
+
+```
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: rke2-calico
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    calico:
+      iface: "eth1"
+```
 
 This is referenced as a server config environmental variable: <br/>
 https://docs.rke2.io/install/install_options/server_config/
 
-### Better to modify the configuration file to disable CNI plugins
-By default, RKE2 will launch with the values present in the YAML file located at: ```/etc/rancher/rke2/config.yaml```
+```
+mkdir -p /var/lib/rancher/rke2/server/manifests/
+cp rke2-canal-config.yml /var/lib/rancher/rke2/server/manifests/
+```
 
-```
-write-kubeconfig-mode: "0644"
-tls-san:
-  - "foo.local"
-node-label:
-  - "foo=bar"
-  - "something=amazing"
-cni:
-  - "none"
-```
+The config needs to be copied over to the manifests directory before installing RKE2
 
 ### Enable the rke2-server service
 ```
