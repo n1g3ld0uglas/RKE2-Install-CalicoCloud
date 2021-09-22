@@ -6,6 +6,16 @@ Installing an RKE2 cluster that supports Calico Cloud
 I'll be use an Ubuntu v.20.04 EC2 instance, as per the supported server options: <br/>
 https://docs.rke2.io/install/requirements/
 
+### Make sure you are a root user
+```
+sudo su
+```
+### Install cURL
+```
+agt-get update
+apt install curl
+```
+
 ### Run the installer
 ```
 curl -sfL https://get.rke2.io | sh -
@@ -49,3 +59,8 @@ systemctl start rke2-server.service
 journalctl -u rke2-server -f
 ```
 
+### Wait a bit
+```
+export KUBECONFIG=/etc/rancher/rke2/rke2.yaml PATH=$PATH:/var/lib/rancher/rke2/bin
+kubectl get nodes
+```
