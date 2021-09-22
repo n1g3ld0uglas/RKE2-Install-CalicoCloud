@@ -1,5 +1,9 @@
 # Deploy RKE2 with Calico Cloud
-Installing an RKE2 cluster that supports Calico Cloud
+Installing an RKE2 cluster that supports Calico Cloud<br/>
+https://github.com/rancher/rke2
+
+If your cluster is configured with the networking plugin calico or canal you must edit the configuration and switch it to none to ensure future updates do not attempt to manage the networking configuration: <br/>
+https://docs.calicocloud.io/install/system-requirements
 
 # Install on the master node
 
@@ -33,6 +37,11 @@ https://docs.rke2.io/install/network_options/
 To override Canal options you should be able to create HelmChartConfig resources <br/>
 The HelmChartConfig resource must match the name and namespace of its corresponding HelmChart. <br/>
 For example, to override Canal Options, you can create the following config: <br/>
+<br/>
+Grabbed the environmental variables from this link:<br/>
+https://github.com/rancher/rke2-charts/blob/main-source/packages/rke2-canal/charts/values.yaml
+
+
 File Name: rke2-canal-config.yml
 
 ```
