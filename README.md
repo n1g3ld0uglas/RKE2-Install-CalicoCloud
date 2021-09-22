@@ -44,7 +44,9 @@ metadata:
 spec:
   valuesContent: |-
     calico:
-      iface: "eth1"
+      cniImage:
+        repository: "rancher/hardened-calico"
+        tag: "v3.19.1-build20210611"
 ```
 
 This is referenced as a server config environmental variable: <br/>
