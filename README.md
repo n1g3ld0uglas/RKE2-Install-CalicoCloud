@@ -88,3 +88,43 @@ journalctl -u rke2-server -f
 export KUBECONFIG=/etc/rancher/rke2/rke2.yaml PATH=$PATH:/var/lib/rancher/rke2/bin
 kubectl get nodes
 ```
+
+# Linux Agent (Worker) Node Installation
+### Run the installer
+You need to install on at least one worker node: <br/>
+https://docs.rke2.io/install/quickstart/
+
+```
+curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="agent" sh -
+```
+This will install the rke2-agent service and the rke2 binary onto your machine.
+
+### Enable the rke2-agent service
+```
+systemctl enable rke2-agent.service
+```
+### Configure the rke2-agent service
+```
+mkdir -p /etc/rancher/rke2/
+vim /etc/rancher/rke2/config.yaml
+```
+
+### Content for config.yaml:
+```
+server: https://<server>:9345
+token: <token from server node>
+```
+
+Note: The rke2 server process listens on port 9345 for new nodes to register.<br/> 
+The Kubernetes API is still served on port 6443, as normal.
+
+### Start the service
+```
+systemctl start rke2-agent.service
+```
+### Follow the logs, if you like
+```
+journalctl -u rke2-agent -f
+```
+
+Note: Each machine must have a unique hostname. If your machines do not have unique hostnames, set the node-name parameter in the config.yaml file and provide a value with a valid and unique hostname for each node.
